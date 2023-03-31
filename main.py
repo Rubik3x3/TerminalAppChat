@@ -35,10 +35,10 @@ def menuSession():
 def default(iSession):
     if os.name == "nt":
         os.system("cls")
-        print("[bold blue][ Python App Chat][/bold blue] [cyan][Version 1.0.0][/cyan] [bold magenta][ "+iSession+" ][/bold magenta]\n[bright_black][    Developer by Franco Salvador Talarico     ][/bright_black]\n")
+        print("[bold blue][ Terminal App Chat][/bold blue] [cyan][Version 1.0.0][/cyan] [bold magenta][ "+iSession+" ][/bold magenta]\n[bright_black][     Developer by Franco Salvador Talarico      ][/bright_black]\n")
     else:
         os.system("clear")
-        print("[bold blue][ Python App Chat][/bold blue] [cyan][Version 1.0.0][/cyan] [bold magenta][ "+iSession+" ][/bold magenta]\n[bright_black][    Developer by Franco Salvador Talarico     ][/bright_black]\n")
+        print("[bold blue][ Terminal App Chat][/bold blue] [cyan][Version 1.0.0][/cyan] [bold magenta][ "+iSession+" ][/bold magenta]\n[bright_black][     Developer by Franco Salvador Talarico      ][/bright_black]\n")
 
 def login():
     print("[white white][ Log In ][/white white]\n")
