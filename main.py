@@ -8,13 +8,27 @@ from rich import print
 firebaseConfig=creds.firebaseConfig
 
 firebase=pyrebase.initialize_app(firebaseConfig)
+db = firebase.database()
 
 auth=firebase.auth()
 
 initSession = ("Not login")
 
-def mainMenu():
-    pass
+uid = ""
+
+def mainMenu(email,nick):
+    print("[bold white]Main Menu, select option:[/bold white]\n\n[1] Join Chat\n[2] Create Chat\n[3] Exit\n")
+    ans=int(input("Option: "))
+    if ans == 1:
+        print(nick)
+    elif ans == 2:
+        print(nick)
+    elif ans == 3:
+        functions.clear()
+        exit()
+    else:
+        default(email)
+        mainMenu(email,nick)
 
 def menuSession():
     print("[bold white]Select option:[/bold white]\n\n[1] Log in\n[2] Register\n[3] Exit\n")
@@ -49,7 +63,9 @@ def login():
     try:
         login = auth.sign_in_with_email_and_password(email,password)
         functions.notify("Successfully logged in!")
+        nick = db.child("users").child(login['localId']).get()
         default(email)
+        mainMenu(email,nick)
     except:
         functions.notify("Invalid email or password.")
 
@@ -59,10 +75,18 @@ def signup():
     email=input()
     print("[i bright_black]Enter password: [/i bright_black]",end="")
     password=input()
+    print("[i bright_black]Enter the Nick: [/i bright_black]",end="")
+    nick=str(input())
     try:
         user = auth.create_user_with_email_and_password(email,password)
+        data = {
+            "nick": nick
+        }
+        uid = user['localId']
+        results = db.child("users").child(uid).set(data)
         functions.notify("Successfully register!")
         default(email)
+        mainMenu(email,nick)
     except:
         functions.notify("Email already exist.")
     return
