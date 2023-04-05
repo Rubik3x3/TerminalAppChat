@@ -22,7 +22,7 @@ def mainMenu(email,nick):
     if ans == 1:
         print(nick)
     elif ans == 2:
-        print(nick)
+        createChat(email,nick)
     elif ans == 3:
         functions.clear()
         exit()
@@ -69,6 +69,18 @@ def login():
     except:
         functions.notify("Invalid email or password.")
 
+def createChat(email,nick):
+    default(email)
+    print("[white white][ CREATE CHAT ][/white white]\n")
+    ans = str(input("Enter the chat name: "))
+    data = {
+        "name": ans,
+        "mensajes":{
+
+        }
+    }
+    db.child("chats").push(data)
+    db.child(uid['localId']).child("chats").set(data)
 def signup():
     print("[white white][ Register ][/white white]\n")
     print("[i bright_black]Enter email: [/i bright_black]",end="")
@@ -78,6 +90,7 @@ def signup():
     print("[i bright_black]Enter the Nick: [/i bright_black]",end="")
     nick=str(input())
     try:
+        global uid
         user = auth.create_user_with_email_and_password(email,password)
         data = {
             "nick": nick
